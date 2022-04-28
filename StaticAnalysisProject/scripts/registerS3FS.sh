@@ -1,0 +1,3 @@
+xport CLASSPATH=svdsmaster.jar:lib/commons-logging-1.1.1.jar:lib/log4j-1.2.9.jar:lib/aws-java-sdk-1.2.2.jar:lib/httpclient-4.1.1.jar:lib/httpcore-4.1.jar:lib/jackson-core-asl-1.4.3.jar:lib/mail-1.4.3.jar:lib/stax-1.2.0.jar:lib/stax-api-1.0.1.jar:lib/commons-codec-1.4.jar
+echo $CLASSPATH
+java -cp $CLASSPATH -Djava.util.logging.config.file=resources/restlet-logging.properties sg.edu.nyp.sit.svds.master.filestore.S3SliceStoreRegistration s3SliceStores(sample).txt localhost:9011 http

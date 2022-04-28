@@ -1,0 +1,6 @@
+set path=C:\Program Files\Java\jdk1.6.0_26\bin
+set proppath=D:\Projects\CloudComputing\Development\DiffusedCloudStorage\resource
+set libpath=D:\Projects\CloudComputing\Development\DiffusedCloudStorage\lib
+set classpath=.;%libpath%\org.osgi.core.jar;%libpath%\org.restlet.jar;%libpath%\commons-logging-1.1.1.jar;%libpath%\log4j-1.2.9.jar;%libpath%\org.jsslutils.jar;%libpath%\org.restlet.ext.ssl.jar;%libpath%\javax.servlet.jar;%libpath%\org.eclipse.jetty.ajp.jar;%libpath%\org.eclipse.jetty.continuations.jar;%libpath%\org.eclipse.jetty.http.jar;%libpath%\org.eclipse.jetty.io.jar;%libpath%\org.eclipse.jetty.server.jar;%libpath%\org.eclipse.jetty.util.jar;%libpath%\org.restlet.ext.jetty.jar;%libpath%\mysql-connector-java-5.1.20-bin.jar;%libpath%\sqlite-jdbc-3.7.2.jar;%proppath%
+java -Djava.util.logging.config.file=%proppath%\restlet-logging.properties sg.edu.nyp.sit.pvfs.proxy.Main -sys_config ProxyConfig.properties -port 6010 -path D:\\Projects\\CloudComputing\\Development\\DiffusedCloudStorage\\filestore
+pause

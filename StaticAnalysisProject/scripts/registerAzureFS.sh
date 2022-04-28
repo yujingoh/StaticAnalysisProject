@@ -1,0 +1,3 @@
+export CLASSPATH=svdsmaster.jar:lib/microsoft-windowsazure-api-0.2.0.jar:lib/commons-lang3-3.1.jar:lib/commons-logging-1.1.1.jar:lib/jackson-core-asl-1.8.3.jar:lib/jackson-jaxrs-1.8.3.jar:lib/jackson-mapper-asl-1.8.3.jar:lib/jackson-xc-1.8.3.jar:lib/javax.inject-1.jar:lib/jaxb-impl-2.2.3-1.jar:lib/jersey-client-1.10-b02.jar:lib/jersey-core-1.10-b02.jar:lib/jersey-json-1.10-b02.jar:lib/jettison-1.1.jar:lib/stax-api-1.0.1.jar
+echo $CLASSPATH
+java -cp $CLASSPATH -Djava.util.logging.config.file=resources/restlet-logging.properties sg.edu.nyp.sit.svds.master.filestore.AzureSliceStoreRegistration azureSliceStores(sample).txt localhost:9011 http

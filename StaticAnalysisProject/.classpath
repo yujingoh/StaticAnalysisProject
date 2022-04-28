@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="core/src"/>
+	<classpathentry excluding="sg/edu/nyp/sit/pvfs/MainConsoleOld.java" kind="src" path="client/src"/>
+	<classpathentry excluding="storage/" kind="src" path="filestore/src"/>
+	<classpathentry kind="src" path="master/src"/>
+	<classpathentry kind="src" path="client/test"/>
+	<classpathentry excluding="sg/edu/nyp/sit/svds/master/svdsTrans_test.log|sg/edu/nyp/sit/svds/master/svds_testAfter.img|sg/edu/nyp/sit/svds/master/svds_testBefore.img" kind="src" path="master/test"/>
+	<classpathentry kind="src" path="resource"/>
+	<classpathentry kind="src" path="proxy/src"/>
+	<classpathentry kind="src" path="proxy/test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="lib/com.ibm.team.build.toolkit_2.1.0.I201005141803.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/Jama-1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/junit.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
+	<classpathentry kind="lib" path="lib/org.osgi.core.jar"/>
+	<classpathentry kind="lib" path="lib/org.restlet.jar"/>
+	<classpathentry kind="lib" path="lib/sqljdbc4.jar"/>
+	<classpathentry kind="lib" path="lib/trove-2.0.3.jar"/>
+	<classpathentry kind="lib" path="lib/jdokan.jar"/>
+	<classpathentry kind="lib" path="lib/org.jsslutils.jar"/>
+	<classpathentry kind="lib" path="lib/org.restlet.ext.ssl.jar"/>
+	<classpathentry kind="lib" path="lib/javax.servlet.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.jetty.ajp.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.jetty.continuations.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.jetty.http.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.jetty.io.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.jetty.server.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.jetty.util.jar"/>
+	<classpathentry kind="lib" path="lib/org.restlet.ext.jetty.jar"/>
+	<classpathentry kind="lib" path="lib/aws-java-sdk-1.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient-4.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/httpcore-4.1.jar"/>
+	<classpathentry kind="lib" path="lib/mail-1.4.3.jar"/>
+	<classpathentry kind="lib" path="lib/stax-1.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/stax-api-1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/bluecove-2.1.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/eldos.cbfs.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-asl-1.8.3.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-jaxrs-1.8.3.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-mapper-asl-1.8.3.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-xc-1.8.3.jar"/>
+	<classpathentry kind="lib" path="lib/javax.inject-1.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb-impl-2.2.3-1.jar"/>
+	<classpathentry kind="lib" path="lib/jersey-client-1.10-b02.jar"/>
+	<classpathentry kind="lib" path="lib/jersey-core-1.10-b02.jar"/>
+	<classpathentry kind="lib" path="lib/jersey-json-1.10-b02.jar"/>
+	<classpathentry kind="lib" path="lib/jettison-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/microsoft-windowsazure-api-0.2.0.jar" sourcepath="D:/Projects/CloudComputing/Resources/ms-azure-java-sdk/microsoft-windowsazure-api-0.2.0/microsoft-windowsazure-api-0.2.0-sources.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.20-bin.jar"/>
+	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.7.2.jar"/>
+	<classpathentry kind="lib" path="lib/svdsclient.jar"/>
+	<classpathentry kind="lib" path="lib/svdscore.jar"/>
+	<classpathentry kind="lib" path="lib/svdstestclient.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

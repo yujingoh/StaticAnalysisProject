@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 1.5.0_22-b03 (Sun Microsystems Inc.)
+Bundle-Name: %Bundle-Name
+Bundle-ClassPath: .
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ManifestVersion: 2
+Bundle-Vendor: %Bundle-Vendor
+Bundle-SymbolicName: org.soyatec.windows.azure.java;singleton:=true
+Require-Bundle: org.soyatec.windows.azure.lib;bundle-version="1.0.1"
+Export-Package: org.soyatec.windowsazure.authenticate,org.soyatec.wind
+ owsazure.blob,org.soyatec.windowsazure.blob.internal,org.soyatec.wind
+ owsazure.blob.io,org.soyatec.windowsazure.constants,org.soyatec.windo
+ wsazure.error,org.soyatec.windowsazure.internal.util,org.soyatec.wind
+ owsazure.internal.util.ssl,org.soyatec.windowsazure.internal.util.xml
+ ,org.soyatec.windowsazure.management,org.soyatec.windowsazure.queue,o
+ rg.soyatec.windowsazure.table,org.soyatec.windowsazure.table.internal
+Bundle-Version: 2.0.2.v20110627-1009
+

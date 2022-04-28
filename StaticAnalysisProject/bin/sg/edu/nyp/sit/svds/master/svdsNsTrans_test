@@ -1,0 +1,15 @@
+NAMESP_REG	TESTFS2	localhost:8011	1	2	 	 
+SLICE_SVR_PROP
+slicestore.status.address=localhost\:8031
+slicestore.status.ssl=off
+END_SLICE_SVR_PROP
+urn:sit.nyp.edu.sg
+END
+NAMESP_REM	TESTFS2
+urn:sit.nyp.edu.sg
+END
+SLICE_SVR_UPD	TESTFS2	localhost:8011	1	2	 	 
+SLICE_SVR_PROP
+slicestore.status.address=localhost\:8021
+slicestore.status.ssl=on
+END_SLICE_SVR_PROP

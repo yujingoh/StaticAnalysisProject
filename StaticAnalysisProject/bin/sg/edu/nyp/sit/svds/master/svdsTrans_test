@@ -1,0 +1,15 @@
+DIR_ADD	urn:sit.nyp.edu.sg	/f1	victoria	1282817514197
+FILE_ADD	urn:sit.nyp.edu.sg	/test1.txt	1	100	victoria	1282817514297	1282817514297	102400	abc
+0	9a62d5d5-34f9-43f5-aed8-bff5f43c5524	TESTFS1	50	356a192b7913b04c54574d18c28d46e6395428ab	0
+1	85466545-f2ce-487c-81b4-66530e6023d5	TESTFS1	50	0-25b46dc84533320e63f89f3548513b57ca6fef50	0
+END
+FILE_UPD	urn:sit.nyp.edu.sg	/test1.txt	1	150	victoria	1282817514297	1282817514328	102400	abc
+0	85466545-f2ce-487c-81b4-66530e6023d5	TESTFS1	150	0-25b46dc84533320e63f89f3548513b57ca6fef50	0
+END
+FILE_ACC	urn:sit.nyp.edu.sg	/test1.txt	1297666460546
+FILE_MV	urn:sit.nyp.edu.sg	/test.txt	urn:sit.nyp.edu.sg	/f1/test.txt	1297407122125
+FILE_ADD	urn:sit.nyp.edu.sg	/testblank.txt	1	0	victoria	1282817514297	1282817514297	102400	abc
+END
+FILE_CHG_MODE	urn:sit.nyp.edu.sg	/test1.txt	1
+FILE_DEL	urn:sit.nyp.edu.sg	/f1/test.txt	1297407125125
+DIR_DEL	urn:sit.nyp.edu.sg	/f1	1297407368734

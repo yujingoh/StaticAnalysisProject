@@ -1,0 +1,17 @@
+SLICE_SERVER	TESTFS1	localhost:8010	1	2	 	 
+slicestore.status.ssl=off
+slicestore.status.address=localhost\:8020
+END
+SLICE_SERVER	TESTFS2	localhost:8011	1	2	 	 
+slicestore.status.ssl=on
+slicestore.status.address=localhost\:8021
+END
+NAMESPACE	urn:sit.nyp.edu.sg	104857450	150
+TESTFS1
+END
+FILE	urn:sit.nyp.edu.sg	/test1.txt	1	150	victoria	1282817514297	1282817514328	1297666460546	102400	abc
+0	85466545-f2ce-487c-81b4-66530e6023d5	TESTFS1	150	0-25b46dc84533320e63f89f3548513b57ca6fef50	0
+END
+CHG_MODE	1
+FILE	urn:sit.nyp.edu.sg	/testblank.txt	1	0	victoria	1282817514297	1282817514297	1282817514297	102400	abc
+END

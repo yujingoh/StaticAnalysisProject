@@ -1,0 +1,6 @@
+set path=C:\Program Files\Java\jdk1.6.0_26\bin
+set proppath=D:\Projects\CloudComputing\Development\DiffusedCloudStorage\resource
+set libpath=D:\Projects\CloudComputing\Development\DiffusedCloudStorage\lib
+set classpath=.;%libpath%\org.osgi.core.jar;%libpath%\org.restlet.jar;%libpath%\commons-logging-1.1.1.jar;%libpath%\log4j-1.2.9.jar;%libpath%\org.jsslutils.jar;%libpath%\org.restlet.ext.ssl.jar;%libpath%\javax.servlet.jar;%libpath%\org.eclipse.jetty.ajp.jar;%libpath%\org.eclipse.jetty.continuations.jar;%libpath%\org.eclipse.jetty.http.jar;%libpath%\org.eclipse.jetty.io.jar;%libpath%\org.eclipse.jetty.server.jar;%libpath%\org.eclipse.jetty.util.jar;%libpath%\org.restlet.ext.jetty.jar;%proppath%
+java -Djava.util.logging.config.file=%proppath%\restlet-logging.properties sg.edu.nyp.sit.svds.filestore.Main -fport 8010 -sport 8011 -host localhost -id testFS -config SliceStoreConfig.properties -path D:\\Projects\\CloudComputing\\Development\\DiffusedCloudStorage\\filestore\\storage -reg 0 -reghost 172.20.134.102
+pause

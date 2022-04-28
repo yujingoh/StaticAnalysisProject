@@ -1,0 +1,7 @@
+azure.cnt=1
+azure.id0=afs1
+azure.url0=http\://blob.core.windows.net/
+azure.namespace0=urn\:sit.nyp.edu.sg
+azure.storageaccount0=moeifazuretest
+azure.secretaccesskey0=IOpp4021LWmjaBJrIoHzxrUvHp2r0GxK7OG6Mot99jXEtcNFGOOdHwuND48BOl8hJEw/OH7wKD+XoLgNun6Okw\=\=
+azure.usedevelopment0=0

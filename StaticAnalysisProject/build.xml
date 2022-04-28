@@ -1,0 +1,636 @@
+<project name="DiffusedCloudStorage" basedir="." default="main">
+	<!-- main build.xml for SVDS project -->
+	<property name="build" value="build" />
+
+	<property name="userId" value="markk" />
+	<property name="password" value="123kheng" />
+
+	<!-- source folders -->
+	<property name="src.core" value="core/src" />
+	<!--<property name="src.misc" value="thirdparty/src" />-->
+	<property name="src.master" value="master/src" />
+	<property name="src.client" value="client/src" />
+	<property name="src.slicestore" value="filestore/src" />
+	<property name="src.proxy" value="proxy/src" />
+
+	<!-- test cases folders -->
+	<property name="src.core.test" value="client/test" />
+	<!--<property name="src.misc.test" value="misc/test" />-->
+	<property name="src.master.test" value="master/test" />
+	<property name="src.client.test" value="client/test" />
+	<property name="src.slicestore.test" value="filestore/test" />
+	<property name="src.proxy.test" value="proxy/test" />
+
+	<!-- test report -->
+	<property name="report.client.test" value="report/client" />
+
+	<!-- compiled class folders -->
+	<property name="build.core.classes" value="${build}/core/classes" />
+	<property name="build.master.classes" value="${build}/master/classes" />
+	<property name="build.slicestore.classes" value="${build}/slicestore/classes" />
+	<property name="build.client.classes" value="${build}/client/classes" />
+	<property name="build.client.test.classes" value="${build}/client/test/classes" />
+	<property name="build.proxy.classes" value="${build}/proxy/classes" />
+	<!--<property name="build.misc.classes" value="${build}/misc/classes" />-->
+
+	<!-- distribution jar -->
+	<property name="build.core.dist" value="${build}/core/dist" />
+	<property name="build.master.dist" value="${build}/master/dist" />
+	<property name="build.slicestore.dist" value="${build}/slicestore/dist" />
+	<!--<property name="build.misc.dist" value="${build}/misc/dist" />-->
+	<property name="build.client.dist" value="${build}/client/dist" />
+	<property name="build.client.test.dist" value="${build}/client/test/dist"/>
+	<property name="build.proxy.dist" value="${build}/proxy/dist" />
+
+	<!-- jar file -->
+	<property name="master.jar" value="svdsmaster.jar" />
+	<property name="client.jar" value="svdsclient.jar" />
+	<property name="testclient.jar" value="svdstestclient.jar" />
+	<property name="slicestore.jar" value="svdsslicestore.jar" />
+	<property name="svdscore.jar" value="svdscore.jar" />
+	<property name="proxy.jar" value="pvfsproxy.jar" />
+
+	<property name="build.dir" value="build" />
+	<property name="classes.dir" value="build/classes" />
+	<property name="jar.dir" value="build/jar" />
+	<property name="src.core.dir" value="core" />
+	<property name="src.client.dir" value="client" />
+	<!--<property name="src.misc.dir" value="thirdparty" />-->
+	
+
+	<path id="build.core.classpath">
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement location="${build.core.classes}" />
+		<pathelement location="${basedir}/conf" />
+		<!--
+		<pathelement location="${basedir}" />
+		-->
+	</path>
+
+	<!--
+	<path id="build.misc.classpath">
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement location="${build.misc.classes}" />
+		<pathelement location="${basedir}" />
+		<pathelement location="${basedir}/misc/conf" /> 	
+	</path>
+	-->
+	
+	<path id="build.client.classpath">
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement location="${build.client.classes}" />
+		<pathelement location="${build.core.classes}" />
+		<pathelement location="${build.master.classes}" />
+		<!--
+			<pathelement location="${basedir}" />
+			<pathelement location="${basedir}/misc/conf" /> 
+		-->
+	</path>
+
+	<path id="build.master.classpath">
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement location="${build.master.classes}" />
+		<pathelement location="${build.core.classes}" />
+		<!--
+			<pathelement location="${basedir}" />
+			<pathelement location="${basedir}/misc/conf" /> 
+		-->
+	</path>
+
+	<path id="build.slicestore.classpath">
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement location="${build.slicestore.classes}" />
+		<pathelement location="${build.core.classes}" />
+		<!--
+				<pathelement location="${basedir}" />
+				<pathelement location="${basedir}/misc/conf" /> 
+		-->
+	</path>
+	
+	<path id="build.proxy.classpath">
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement location="${build.proxy.classes}" />
+		<pathelement location="${build.core.classes}" />
+		<!--
+				<pathelement location="${basedir}" />
+				<pathelement location="${basedir}/misc/conf" /> 
+		-->
+	</path>
+
+	<target name="prepare">
+		<mkdir dir="${build.client.classes}" />
+		<mkdir dir="${build.client.test.classes}" />
+		<mkdir dir="${build.master.classes}" />
+		<!--<mkdir dir="${build.misc.classes}" />-->
+		<mkdir dir="${build.core.classes}" />
+		<mkdir dir="${build.slicestore.classes}" />
+		<mkdir dir="${build.proxy.classes}" />
+
+		<mkdir dir="${build.master.dist}" />
+		<mkdir dir="${build.proxy.dist}" />
+		<mkdir dir="${build.client.dist}" />
+		<mkdir dir="${build.slicestore.dist}" />
+		<mkdir dir="${build.client.test.dist}" />
+
+		<!-- test report directories -->
+		<mkdir dir="${report.client.test}" />
+	</target>
+
+	<!-- delete all the directories -->
+	<target name="clean">
+		<delete dir="${build.client.classes}" />
+		<delete dir="${build.client.test.classes}"/>
+		<delete dir="${build.master.classes}" />
+		<delete dir="${build.proxy.classes}" />
+		<!--<delete dir="${build.misc.classes}" />-->
+		<delete dir="${build.core.classes}" />
+		<delete dir="${build.slicestore.classes}" />
+
+		<delete dir="${build.master.dist}" />
+		<delete dir="${build.proxy.dist}" />
+		<delete dir="${build.client.dist}" />
+		<delete dir="${build.slicestore.dist}" />
+
+		<delete dir="${report.client.test}" />
+		<delete dir="${build}" />
+	</target>
+
+	<!--
+	<target name="compile.s3thirdparty" depends="prepare">
+		<echo message="Compiling s3thirdparty source files" />
+		<javac srcdir="${src.misc}" destdir="${build.misc.classes}" debug="true" debuglevel="lines,vars,source" verbose="false">
+			<exclude name="org/**/*.java"/>
+			<classpath refid="build.misc.classpath" />
+		</javac>
+	</target>
+	-->
+	
+	<target name="compile.core" depends="clean,prepare">
+		<echo message="Compiling core source files" />
+		<javac srcdir="${src.core}" destdir="${build.core.classes}" debug="true" debuglevel="lines,vars,source" verbose="false">
+			<!-- <exclude name="org/**/*.java"/> -->
+			<classpath refid="build.core.classpath" />
+		</javac>
+	</target>
+
+	<!--<target name="compile.client" depends="compile.core,compile.s3thirdparty">-->
+	<target name="compile.client" depends="compile.core">
+		<echo message="Compiling client source files" />
+		<javac srcdir="${src.client}" destdir="${build.client.classes}" debug="true" debuglevel="lines,vars,source" verbose="false">
+			<include name="**/*.java" />
+			<exclude name="**/gf/*.java" />
+			<classpath refid="build.client.classpath" />
+			<!--<classpath refid="build.misc.classpath" />-->
+		</javac>
+	</target>
+
+	<target name="compile.master" depends="compile.core">
+		<echo message="Compiling master server source files" />
+		<javac srcdir="${src.master}" destdir="${build.master.classes}" debug="true" debuglevel="lines,vars,source" verbose="false">
+			<include name="**/*.java" />
+			<!-- <exclude name="org/**/*.java"/> -->
+			<classpath refid="build.master.classpath" />
+		</javac>
+	</target>
+	
+	<target name="compile.proxy" depends="compile.core">
+			<echo message="Compiling proxy server source files" />
+			<javac srcdir="${src.proxy}" destdir="${build.proxy.classes}" debug="true" debuglevel="lines,vars,source" verbose="false">
+				<include name="**/*.java" />
+				<!-- <exclude name="org/**/*.java"/> -->
+				<classpath refid="build.proxy.classpath" />
+			</javac>
+		</target>
+
+	<target name="compile.slicestore" depends="compile.core">
+		<echo message="Compiling slicestore server source files" />
+		<javac srcdir="${src.slicestore}" destdir="${build.slicestore.classes}" debug="true" debuglevel="lines,vars,source" verbose="false">
+			<include name="**/*.java" />
+			<!-- <exclude name="org/**/*.java"/> -->
+			<classpath refid="build.slicestore.classpath" />
+		</javac>
+	</target>
+
+	<target name="compile.client.test" depends="compile.client,compile.master,compile.slicestore">
+		<echo message="Compiling client junit test cases" />
+		<javac srcdir="${src.client.test}" destdir="${build.client.test.classes}" debug="true" debuglevel="lines,vars,source" verbose="false">
+			<include name="**/*Test*.java" />
+			<exclude name="**/gf/*.java" />
+			<classpath refid="build.client.classpath" />
+			<classpath refid="build.master.classpath" />
+			<classpath refid="build.slicestore.classpath" />
+		</javac>
+	</target>
+
+	<target name="client.junit.test" depends="compile.client.test">
+		<copy file="${basedir}/resource/log4j.properties" todir="${build.client.test.classes}" />
+		<copy file="${basedir}/resource/commons-logging.properties" todir="${build.client.test.classes}" />
+		<copy file="${basedir}/resource/restlet-logging.properties" todir="${build.client.test.classes}" />
+		<copy todir="${build.client.classes}">
+			<fileset dir="${basedir}/resource" />
+		</copy>
+
+		<junit printsummary="true" haltonfailure="no">
+			<classpath refid="build.client.classpath" />
+			<classpath refid="build.slicestore.classpath" />
+			<classpath refid="build.master.classpath" />
+			<!--<classpath refid="build.misc.classpath" />-->
+			<classpath>
+			    <pathelement location="${build.client.classes}"/>
+				<pathelement location="${build.client.test.classes}"/>
+				<pathelement location="${build.core.classes}"/>
+				<pathelement location="${build.master.classes}"/>
+				<pathelement location="${build.slicestore.classes}"/>
+				<pathelement location="${basedir}/resource"/>
+		    </classpath>
+
+			<sysproperty key="user.dir" value="C:/jazz/fetched/DiffusedCloudStorage"/>
+
+			<!--<classpath path="${basedir}/resource"/>-->
+			<formatter type="xml" />
+
+			<!--<test name="sg.edu.nyp.sit.svds.test.ida.TestRabinImpl" outfile="HelloTest" /> -->
+			<batchtest todir="${report.client.test}">
+				<fileset dir="${build.client.test.classes}">
+					<include name="**/*Test.class" />
+					<exclude name="**/Master*Test.class" />
+					<exclude name="**/*S3*.class" />
+					<exclude name="**/*Azure*.class" />
+				</fileset>
+			</batchtest>
+		</junit>
+
+		<!--
+		<logPublisher buildResultUUID="${buildResultUUID}"
+		              repositoryAddress="${repositoryAddress}"
+		              userId="${userId}"
+		              password="${password}"
+		              filePath="${report.client.test}"
+		              label="Raw JUnit log" />
+		-->
+		<!-- Publish the JUnit log to Jazz. JUnit results published in this way are
+			 shown on the JUnit tab of the build result editor. You must use the
+			 junit task's formatter type=xml to get a junit xml log for publishing. 
+
+		<junitLogPublisher filePath="${report.client.test}" buildResultUUID="${buildResultUUID}" repositoryAddress="${repositoryAddress}" userId="${userId}" password="${password}" />
+		-->
+	</target>
+
+	<target name="jar.core" depends="compile.core">
+			<mkdir dir="${build.core.dist}" />
+			<jar destfile="${build.core.dist}/${svdscore.jar}" basedir="${build.core.classes}">
+				<!-- 
+					<manifest>
+		                <attribute name="Main-Class" value="${main-class}"/>
+		            </manifest> 
+		    	-->
+			</jar>
+	</target>
+	
+	<target name="jar.master" depends="compile.master,jar.core">
+		<mkdir dir="${build.master.dist}" />
+		<jar destfile="${build.master.dist}/${master.jar}" basedir="${build.master.classes}">
+			<manifest>
+                <attribute name="Main-Class" value="sg.edu.nyp.sit.svds.master.Main"/>
+            </manifest> 
+		</jar>
+	</target>
+	
+	<target name="jar.proxy" depends="compile.proxy,jar.core">
+		<mkdir dir="${build.proxy.dist}" />
+		<jar destfile="${build.proxy.dist}/${proxy.jar}" basedir="${build.proxy.classes}">
+			<manifest>
+				<attribute name="Main-Class" value="sg.edu.nyp.sit.pvfs.proxy.Main"/>
+			</manifest> 
+		</jar>
+	</target>
+	
+	<target name="jar.slicestore" depends="compile.slicestore,jar.core">
+		<mkdir dir="${build.slicestore.dist}" />
+		<jar destfile="${build.slicestore.dist}/${slicestore.jar}" basedir="${build.slicestore.classes}">
+			<manifest>
+	        	<attribute name="Main-Class" value="sg.edu.nyp.sit.svds.filestore.Main"/>
+	    	</manifest> 
+		</jar>
+	</target>
+
+	<target name="jar.client" depends="compile.client,jar.core">
+		<mkdir dir="${build.client.dist}" />
+		<jar destfile="${build.client.dist}/${client.jar}" basedir="${build.client.classes}">
+			<!--
+				<manifest>
+	                <attribute name="Main-Class" value="sg.edu.nyp.sit.svds.master.Main"/>
+	            </manifest>  
+			--> 
+		</jar>
+	</target>
+	
+	<target name="jar.client.test" depends="compile.client.test,jar.client">
+		<mkdir dir="${build.testclient.dist}" />
+		<jar destfile="${build.client.test.dist}/${testclient.jar}" basedir="${build.client.test.classes}"> 
+			<!--
+				<manifest>
+	                <attribute name="Main-Class" value="sg.edu.nyp.sit.svds.master.Main"/>
+	            </manifest>  
+			--> 
+		</jar>
+	</target>
+	
+	<target name="dist.master" depends="jar.master">
+		<!--
+		<copy todir="${build.master.dist}/lib">
+			<fileset dir="${basedir}/lib">
+				<include name="org.reslet.jar,commons-logging-1.1.1.jar"/>
+			</fileset> 
+		</copy>
+		-->
+		<copy file="${build.core.dist}/${svdscore.jar}" todir="${build.master.dist}/lib"/>
+		
+		<copy file="${basedir}/lib/org.osgi.core.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/org.restlet.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/javax.servlet.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/org.eclipse.jetty.ajp.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/org.eclipse.jetty.continuations.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/org.eclipse.jetty.http.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/org.eclipse.jetty.io.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/org.eclipse.jetty.server.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/org.eclipse.jetty.util.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/org.jsslutils.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/org.restlet.ext.jetty.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/org.restlet.ext.ssl.jar" todir="${build.master.dist}/lib"/>
+		
+		<copy file="${basedir}/lib/log4j-1.2.9.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/commons-logging-1.1.1.jar" todir="${build.master.dist}/lib"/>
+		
+		<copy file="${basedir}/lib/microsoft-windowsazure-api-0.2.0.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/commons-lang3-3.1.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/jackson-jaxrs-1.8.3.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/jackson-mapper-asl-1.8.3.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/jackson-xc-1.8.3.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/javax.inject-1.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/jaxb-impl-2.2.3-1.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/jersey-client-1.10-b02.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/jersey-core-1.10-b02.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/jersey-json-1.10-b02.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/jettison-1.1.jar" todir="${build.master.dist}/lib"/>
+		
+		<copy file="${basedir}/lib/jackson-core-asl-1.8.3.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/stax-api-1.0.1.jar" todir="${build.master.dist}/lib"/>
+		
+		<copy file="${basedir}/lib/aws-java-sdk-1.2.2.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/commons-codec-1.4.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/httpclient-4.1.1.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/httpcore-4.1.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/mail-1.4.3.jar" todir="${build.master.dist}/lib"/>
+		<copy file="${basedir}/lib/stax-1.2.0.jar" todir="${build.master.dist}/lib"/>
+		
+		<copy file="${basedir}/resource/log4j.properties" todir="${build.master.dist}/resources/"/>
+		<copy file="${basedir}/resource/commons-logging.properties" todir="${build.master.dist}/resources/"/>
+		<copy file="${basedir}/resource/restlet-logging.properties" todir="${build.master.dist}/resources/"/>
+		<zip destfile="${build.master.dist}/master.zip">
+			<fileset dir="${build.master.dist}"/>
+			<fileset dir="${basedir}/resource" includes="MasterConfig.properties"/>
+			<fileset dir="${basedir}/resource" includes="SecondaryMasterConfig.properties"/>
+			<fileset dir="${basedir}/resource" includes="IDAProp.properties"/>
+			<fileset dir="${basedir}/resource" includes="azureSliceStores(sample).txt"/>
+			<fileset dir="${basedir}/resource" includes="s3SliceStores(sample).txt"/>
+		    <fileset dir="scripts" includes="start_svdsm.bat"/>
+			<fileset dir="scripts" includes="start_svdsm.sh"/>
+		</zip>
+	</target>
+	
+		<target name="dist.proxy" depends="jar.proxy">
+			<copy file="${build.core.dist}/${svdscore.jar}" todir="${build.proxy.dist}/lib"/>
+			
+			<copy file="${basedir}/lib/org.osgi.core.jar" todir="${build.proxy.dist}/lib"/>
+			<copy file="${basedir}/lib/org.restlet.jar" todir="${build.proxy.dist}/lib"/>
+			<copy file="${basedir}/lib/javax.servlet.jar" todir="${build.proxy.dist}/lib"/>
+			<copy file="${basedir}/lib/org.eclipse.jetty.ajp.jar" todir="${build.proxy.dist}/lib"/>
+			<copy file="${basedir}/lib/org.eclipse.jetty.continuations.jar" todir="${build.proxy.dist}/lib"/>
+			<copy file="${basedir}/lib/org.eclipse.jetty.http.jar" todir="${build.proxy.dist}/lib"/>
+			<copy file="${basedir}/lib/org.eclipse.jetty.io.jar" todir="${build.proxy.dist}/lib"/>
+			<copy file="${basedir}/lib/org.eclipse.jetty.server.jar" todir="${build.proxy.dist}/lib"/>
+			<copy file="${basedir}/lib/org.eclipse.jetty.util.jar" todir="${build.proxy.dist}/lib"/>
+			<copy file="${basedir}/lib/org.jsslutils.jar" todir="${build.proxy.dist}/lib"/>
+			<copy file="${basedir}/lib/org.restlet.ext.jetty.jar" todir="${build.proxy.dist}/lib"/>
+			<copy file="${basedir}/lib/org.restlet.ext.ssl.jar" todir="${build.proxy.dist}/lib"/>
+		
+			<copy file="${basedir}/lib/mysql-connector-java-5.1.20-bin.jar" todir="${build.proxy.dist}/lib"/>
+			<copy file="${basedir}/lib/sqlite-jdbc-3.7.2.jar" todir="${build.proxy.dist}/lib"/>
+		
+			<copy file="${basedir}/lib/log4j-1.2.9.jar" todir="${build.proxy.dist}/lib"/>
+			<copy file="${basedir}/lib/commons-logging-1.1.1.jar" todir="${build.proxy.dist}/lib"/>
+
+			<copy file="${basedir}/resource/log4j.properties" todir="${build.proxy.dist}/resources/"/>
+			<copy file="${basedir}/resource/commons-logging.properties" todir="${build.proxy.dist}/resources/"/>
+			<copy file="${basedir}/resource/restlet-logging.properties" todir="${build.proxy.dist}/resources/"/>
+			
+			<copydir src="${basedir}/proxy/src/sg/edu/nyp/sit/pvfs/proxy/html"
+			           dest="${build.proxy.dist}/sg/edu/nyp/sit/pvfs/proxy/html"/>
+			
+			<zip destfile="${build.proxy.dist}/proxy.zip">
+				<fileset dir="${build.proxy.dist}"/>
+				<fileset dir="${basedir}/resource" includes="ProxyConfig.properties"/>
+				<fileset dir="scripts" includes="start_proxy.bat"/>
+				<fileset dir="scripts" includes="start_proxy.sh"/>
+			</zip>
+		</target>
+	
+	<target name="dist.slicestore" depends="jar.slicestore">
+		<copy file="${build.core.dist}/${svdscore.jar}" todir="${build.slicestore.dist}/lib"/>
+		
+		<copy file="${basedir}/lib/org.osgi.core.jar" todir="${build.slicestore.dist}/lib"/>
+		<copy file="${basedir}/lib/org.restlet.jar" todir="${build.slicestore.dist}/lib"/>
+		<copy file="${basedir}/lib/javax.servlet.jar" todir="${build.slicestore.dist}/lib"/>
+		<copy file="${basedir}/lib/org.eclipse.jetty.ajp.jar" todir="${build.slicestore.dist}/lib"/>
+		<copy file="${basedir}/lib/org.eclipse.jetty.continuations.jar" todir="${build.slicestore.dist}/lib"/>
+		<copy file="${basedir}/lib/org.eclipse.jetty.http.jar" todir="${build.slicestore.dist}/lib"/>
+		<copy file="${basedir}/lib/org.eclipse.jetty.io.jar" todir="${build.slicestore.dist}/lib"/>
+		<copy file="${basedir}/lib/org.eclipse.jetty.server.jar" todir="${build.slicestore.dist}/lib"/>
+		<copy file="${basedir}/lib/org.eclipse.jetty.util.jar" todir="${build.slicestore.dist}/lib"/>
+		<copy file="${basedir}/lib/org.jsslutils.jar" todir="${build.slicestore.dist}/lib"/>
+		<copy file="${basedir}/lib/org.restlet.ext.jetty.jar" todir="${build.slicestore.dist}/lib"/>
+		<copy file="${basedir}/lib/org.restlet.ext.ssl.jar" todir="${build.slicestore.dist}/lib"/>
+				
+		<copy file="${basedir}/lib/log4j-1.2.9.jar" todir="${build.slicestore.dist}/lib"/>
+		<copy file="${basedir}/lib/commons-logging-1.1.1.jar" todir="${build.slicestore.dist}/lib"/>
+
+		<copy file="${basedir}/resource/log4j.properties" todir="${build.slicestore.dist}/resources/"/>
+		<copy file="${basedir}/resource/commons-logging.properties" todir="${build.slicestore.dist}/resources/"/>
+		<copy file="${basedir}/resource/restlet-logging.properties" todir="${build.slicestore.dist}/resources/"/>
+		<zip destfile="${build.slicestore.dist}/slicestore.zip">
+			<fileset dir="${build.slicestore.dist}"/>
+			<fileset dir="${basedir}/resource" includes="SliceStoreConfig.properties"/>
+			<fileset dir="scripts" includes="start_svdss.bat"/>
+			<fileset dir="scripts" includes="start_svdss.sh"/>
+		</zip>
+	</target>
+	
+	<target name="dist.client.pvfs.eldosx86" depends="jar.client">
+			<copy file="${build.core.dist}/${svdscore.jar}" todir="${build.client.dist}/lib"/>
+			
+			<copy file="${basedir}/lib/bluecove-2.1.1-SNAPSHOT.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/eldos.cbfs.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/eldos_x86/jnicbfs.dll" todir="${build.client.dist}/lib"/>
+			
+			<copy file="${basedir}/lib/log4j-1.2.9.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/commons-logging-1.1.1.jar" todir="${build.client.dist}/lib"/>
+			
+			<copy file="${basedir}/lib/microsoft-windowsazure-api-0.2.0.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/commons-lang3-3.1.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/jackson-jaxrs-1.8.3.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/jackson-mapper-asl-1.8.3.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/jackson-xc-1.8.3.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/javax.inject-1.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/jaxb-impl-2.2.3-1.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/jersey-client-1.10-b02.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/jersey-core-1.10-b02.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/jersey-json-1.10-b02.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/jettison-1.1.jar" todir="${build.client.dist}/lib"/>
+					
+			<copy file="${basedir}/lib/jackson-core-asl-1.8.3.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/stax-api-1.0.1.jar" todir="${build.client.dist}/lib"/>
+					
+			<copy file="${basedir}/lib/aws-java-sdk-1.2.2.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/commons-codec-1.4.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/httpclient-4.1.1.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/httpcore-4.1.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/mail-1.4.3.jar" todir="${build.client.dist}/lib"/>
+			<copy file="${basedir}/lib/stax-1.2.0.jar" todir="${build.client.dist}/lib"/>
+			
+			<copy file="${basedir}/resource/log4j.properties" todir="${build.client.dist}/resources/"/>
+			<copy file="${basedir}/resource/commons-logging.properties" todir="${build.client.dist}/resources/"/>
+			<copy file="${basedir}/resource/svdsclient.properties" todir="${build.client.dist}/resources/"/>
+			
+			<copy file="${basedir}/resource/cbfs.cab" todir="${build.client.dist}/resources/"/>
+			<copy file="${basedir}/resource/harddrive.png" todir="${build.client.dist}/resources/"/>
+			
+			<zip destfile="${build.client.dist}/svdsclient.zip">
+				<fileset dir="${build.client.dist}"/>
+				<fileset dir="scripts" includes="start_pvfs_eldos.bat"/>
+			</zip>
+		</target>
+	
+	<target name="dist.client.pvfs.eldosx64" depends="jar.client">
+		<copy file="${build.core.dist}/${svdscore.jar}" todir="${build.client.dist}/lib"/>
+		
+		<copy file="${basedir}/lib/bluecove-2.1.1-SNAPSHOT.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/eldos.cbfs.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/eldos_x64/jnicbfs.dll" todir="${build.client.dist}/lib"/>
+		
+		<copy file="${basedir}/lib/log4j-1.2.9.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/commons-logging-1.1.1.jar" todir="${build.client.dist}/lib"/>
+		
+		<copy file="${basedir}/lib/microsoft-windowsazure-api-0.2.0.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/commons-lang3-3.1.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/jackson-jaxrs-1.8.3.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/jackson-mapper-asl-1.8.3.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/jackson-xc-1.8.3.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/javax.inject-1.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/jaxb-impl-2.2.3-1.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/jersey-client-1.10-b02.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/jersey-core-1.10-b02.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/jersey-json-1.10-b02.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/jettison-1.1.jar" todir="${build.client.dist}/lib"/>
+				
+		<copy file="${basedir}/lib/jackson-core-asl-1.8.3.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/stax-api-1.0.1.jar" todir="${build.client.dist}/lib"/>
+				
+		<copy file="${basedir}/lib/aws-java-sdk-1.2.2.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/commons-codec-1.4.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/httpclient-4.1.1.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/httpcore-4.1.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/mail-1.4.3.jar" todir="${build.client.dist}/lib"/>
+		<copy file="${basedir}/lib/stax-1.2.0.jar" todir="${build.client.dist}/lib"/>
+		
+		<copy file="${basedir}/resource/log4j.properties" todir="${build.client.dist}/resources/"/>
+		<copy file="${basedir}/resource/commons-logging.properties" todir="${build.client.dist}/resources/"/>
+		<copy file="${basedir}/resource/svdsclient.properties" todir="${build.client.dist}/resources/"/>
+		
+		<copy file="${basedir}/resource/cbfs.cab" todir="${build.client.dist}/resources/"/>
+		<copy file="${basedir}/resource/harddrive.png" todir="${build.client.dist}/resources/"/>
+		
+		<zip destfile="${build.client.dist}/svdsclient.zip">
+			<fileset dir="${build.client.dist}"/>
+			<fileset dir="scripts" includes="start_pvfs_eldos.bat"/>
+		</zip>
+	</target>
+
+	<target name="dist.client.test" depends="jar.client.test">
+		<copy file="${build.core.dist}/${svdscore.jar}" todir="${build.client.test.dist}/lib"/>
+		<copy file="${build.client.dist}/${client.jar}" todir="${build.client.test.dist}/lib"/>
+		
+		<copy file="${basedir}/lib/org.osgi.core.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/org.restlet.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/javax.servlet.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/org.eclipse.jetty.ajp.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/org.eclipse.jetty.continuations.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/org.eclipse.jetty.http.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/org.eclipse.jetty.io.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/org.eclipse.jetty.server.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/org.eclipse.jetty.util.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/org.jsslutils.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/org.restlet.ext.jetty.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/org.restlet.ext.ssl.jar" todir="${build.client.test.dist}/lib"/>
+						
+		<copy file="${basedir}/lib/log4j-1.2.9.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/commons-logging-1.1.1.jar" todir="${build.client.test.dist}/lib"/>
+		
+		<copy file="${basedir}/lib/microsoft-windowsazure-api-0.2.0.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/commons-lang3-3.1.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/jackson-jaxrs-1.8.3.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/jackson-mapper-asl-1.8.3.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/jackson-xc-1.8.3.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/javax.inject-1.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/jaxb-impl-2.2.3-1.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/jersey-client-1.10-b02.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/jersey-core-1.10-b02.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/jersey-json-1.10-b02.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/jettison-1.1.jar" todir="${build.client.test.dist}/lib"/>
+		
+		<copy file="${basedir}/lib/jackson-core-asl-1.8.3.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/stax-api-1.0.1.jar" todir="${build.client.test.dist}/lib"/>
+		
+		<copy file="${basedir}/lib/aws-java-sdk-1.2.2.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/commons-codec-1.4.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/httpclient-4.1.1.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/httpcore-4.1.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/mail-1.4.3.jar" todir="${build.client.test.dist}/lib"/>
+		<copy file="${basedir}/lib/stax-1.2.0.jar" todir="${build.client.test.dist}/lib"/>
+
+		<copy file="${basedir}/resource/log4j.properties" todir="${build.client.test.dist}/resources/"/>
+		<copy file="${basedir}/resource/commons-logging.properties" todir="${build.client.test.dist}/resources/"/>
+		<copy file="${basedir}/resource/svdsclient.properties" todir="${build.client.test.dist}/resources/"/>
+		<zip destfile="${build.client.test.dist}/svdstestclient.zip">
+			<fileset dir="${build.client.test.dist}"/>
+			<!--<fileset dir="${basedir}/resource" includes="SliceStoreConfig.properties"/> -->
+			<fileset dir="scripts" includes="runLoadTest_onlyClient(sample)_v2.bat"/>
+			<fileset dir="scripts" includes="runLoadTest_onlyClient(sample)_v2.sh"/>
+		</zip>
+	</target>
+	
+	<target name="clean-build" depends="clean" />
+
+	<target name="main" depends="compile.client,compile.master,compile.slicestore,compile.proxy,client.junit.test" />
+
+	<!--	
+	<taskdef name="junitLogPublisher" classname="com.ibm.team.build.ant.task.JUnitLogPublisherTask" classpath="${basedir}/lib/com.ibm.team.build.toolkit_2.1.0.I201005141803.jar" /> 
+
+	<taskdef name="linkPublisher" classname="com.ibm.team.build.ant.task.LinkPublisherTask" />
+
+	<taskdef name="logPublisher" classname="com.ibm.team.build.ant.task.LogPublisherTask" />
+	-->
+</project>
+
